@@ -4,7 +4,7 @@
 
 그런데 게임 개발을 하다 보면 한 오브젝트가 다른 오브젝트와 상호작용을 해야 할 때가 있다. 여기서 말하는 상호작용이란 단순히 애니메이션을 재생하는 것이 아니라 아래의 영상과 같이 주변 오브젝트에 따라 캐릭터의 움직임이 영향을 받는 것이다.
 
-[##_Image|kage@qXJPs/btrnc3nsPfO/OhrpIBpGdODI7GDc0Z6700/img.gif|CDM|1.3|{"originWidth":607,"originHeight":565,"style":"alignCenter","width":400,"height":372,"caption":"구와 상호작용하는 문어 다리&amp;nbsp; https://www.alanzucconi.com/2017/04/17/procedural-animations/","filename":"tentacle2.gif"}_##]
+![](./images/문어다리.gif)
 
 예를 들면, 어떤 물체의 움직임에 따라 캐릭터의 시선이 따라간다든지 무기를 잡는 동작이 다르다든지 등 주변 환경에 맞는 상호작용이 필요한 경우가 무수히 많다. 이러한 모든 경우의 수를 계산해서 애니메이션을 미리 만들어 놓을 순 있지만 게임의 규모가 커지고 자유도가 높은 게임이라면 좋은 접근법은 아닌듯하다.
 
@@ -16,21 +16,21 @@
 
 먼저 스켈레톤을 다운 받고 임포트 해서 씬에 배치해 보자.
 
-[##_Image|kage@dzm0v4/btrm5yWjbfr/u94Hlv8SBGtZE6jyRhRwkK/img.png|CDM|1.3|{"originWidth":958,"originHeight":508,"style":"alignCenter","width":860,"height":461,"filename":"blob"}_##]
+![](./images/스냅샷1.png)
 
 Hierarchy 창에서 던전 스켈레톤의 자식 오브젝트 중 Bip001은 캐릭터의 뼈대로 릭(Rig)이라고 불리며 릭은 캐릭터의 개별 뼈를 구성하는 오브젝트의 계층구조를 가진다. 
 
-[##_Image|kage@bqk9m2/btrndm79Xvm/0fZBjz3dIDjfzyR9HyU0H1/img.png|CDM|1.3|{"originWidth":440,"originHeight":416,"style":"alignCenter"}_##]
+![](./images/스냅샷2.png)
 
 Thigh(대퇴골)를 클릭하면 던전 스켈레톤의 대퇴골이 포커싱 된다.
 
-[##_Image|kage@qfuTh/btrm5znrwkS/k2EQbcKonEoXjnh6AeMKmk/img.png|CDM|1.3|{"originWidth":1227,"originHeight":511,"style":"alignCenter"}_##]
+![](./images/스냅샷3.png)
 
 애니메이션 리깅을 알아보기 전에 캐릭터 애니메이션은 기본적으로 3단계로 작동하는데 
 
 1\. 캐릭터는 애니메이터에 의해 결정된 애니메이션을 재생한다.
 
-[##_Image|kage@cDekFF/btrm3PcVQEf/CU78wtqqgKYE2XNf2RzKEK/img.png|CDM|1.3|{"originWidth":406,"originHeight":396,"style":"alignCenter"}_##]
+![](./images/스냅샷4.png)
 
 2\. 해당 애니메이션에 의해 뼈대가 이동한다.
 
@@ -48,19 +48,19 @@ Thigh(대퇴골)를 클릭하면 던전 스켈레톤의 대퇴골이 포커싱 �
 
 Windows - Package Manager에서 Animation Rigging 패키지를 검색하고 Install 한다.
 
-[##_Image|kage@bKfPeI/btrnbWouRhi/ZdLldGfNEo23kt8A1MewP1/img.png|CDM|1.3|{"originWidth":796,"originHeight":557,"style":"alignCenter"}_##]
+![](./images/스냅샷5.png)
 
 패키지 설치가 끝났으면 애니메이션 리깅을 설정해서 캐릭터를 구성하는 뼈대를 나타내는 것으로 시작한다.
 
 던전 스켈레톤을 누르고 상단에 Animation Rigging - Bone Renderer Setup을 클릭하면 된다.
 
-[##_Image|kage@Beyz7/btrm9E2MQ7F/ZfKXGlOe4F41EmZsXFhuxk/img.png|CDM|1.3|{"originWidth":1400,"originHeight":566,"style":"alignCenter"}_##]
+![](./images/스냅샷6.png)
 
 Bone Renderer Setup를 클릭하면 던전 스켈레톤에 Bone Renderer라는 컴포넌트가 추가되며 동시에 Scene 뷰에 던전 스켈레톤의 뼈대가 표시되고 마우스로 쉽게 클릭도 가능해진다!
 
 Bone Renderer는 던전 스켈레톤의 릭을 구성하는 뼈대 오브젝트들의 트랜스폼을 참조하고 있으며 뼈대의 크기나 색을 조정할 수도 있다.
 
-[##_Image|kage@cxFq7J/btrm9EhsNMb/kEiwhyjbc8OBAo25gP59aK/img.png|CDM|1.3|{"originWidth":1909,"originHeight":536,"style":"alignCenter"}_##]
+![](./images/스냅샷7.png)
 
 여기까지 됐다면 Rig을 만들어야 한다. 참고로 애니메이션 리깅은 별도의 Rig을 만듦으로써 동작한다.
 
@@ -71,35 +71,35 @@ Bone Renderer는 던전 스켈레톤의 릭을 구성하는 뼈대 오브젝트�
 
 2.  던전 스켈레톤의 자식으로 Rig 컴포넌트를 가진 한 오브젝트가 생긴다.
 
-[##_Image|kage@HgJh8/btrm5y9WltG/st1iV5fvEXbj9AMBzP31k1/img.png|CDM|1.3|{"originWidth":886,"originHeight":557,"style":"alignCenter"}_##]
+![](./images/스냅샷8.png)
 
 Rig 1 오브젝트에 제약조건(Constraint)를 추가함으로써 애니메이션 리깅이 가능해진다.
 
 Rig 1에 Empty 오브젝트를 하나 추가해서 이름을 HeadAim으로 변경하고 HeadAim에 Multi-Aim Constraint 컴포넌트를 추가해 보자. 
 
-[##_Image|kage@E2je4/btrm7Mthrmg/r6DL2qZWExHGfP0ygKXanK/img.png|CDM|1.3|{"originWidth":888,"originHeight":553,"style":"alignCenter"}_##]
+![](./images/스냅샷9.png)
 
 Multi-Aim Constraint에 몇 가지 정보를 넘겨줘야 한다.
 
 1.  Constrained Object에 제약조건이 걸릴 뼈대를 넘겨주면 되는데, 본 실습에선 머리에 애니메이션 리깅을 적용하고 싶으니 Constrained Object에 던전 스켈레톤의 Head 뼈대를 넘겨주고 Aim Axis를 Y로 변경해 주자.  
-    [##_Image|kage@ZQTIG/btrm83BonxY/vl7A97Q5uJKnp3phOzJT0k/img.png|CDM|1.3|{"originWidth":900,"originHeight":563,"style":"alignCenter"}_##]
+    ![](./images/스냅샷10.png)
 2.  Source Object는 Constrained Object와 상호작용할 오브젝트로 HeadAim 산하에 Empty Object를 하나 추가해서 Target이라는 이름으로 변경하고 Source Object에 넘겨주자.  
-    [##_Image|kage@bgOBde/btrm7MNBMnG/FtWm7FvHPIiRiMG7lCluq1/img.png|CDM|1.3|{"originWidth":890,"originHeight":557,"style":"alignCenter"}_##]
+    ![](./images/스냅샷11.png)
 3.  Scene에서 Target이 안 보이니 Shape을 BallEffector로 변경해 주자.  
-    [##_Image|kage@be9iw9/btrm9EobYcb/yHxEM6stxnERyplP6c6s60/img.png|CDM|1.3|{"originWidth":1024,"originHeight":516,"style":"alignCenter"}_##]
+    ![](./images/스냅샷12.png)
 4.  마지막으로 Multi-Aim Constraint에 Setting을 살펴보면 뼈대가 회전할 수 있는 최솟값과 최댓값을 지정해 줄 수 있다. Min Limit과 Max Limit을 각각 -100, 100으로 지정하면 멋진 결과물이 탄생한다.
 
-[##_Image|kage@o12J8/btrne0i5iz4/uRC8AUAhLRGNoL8bEDNsa0/img.gif|CDM|1.3|{"originWidth":800,"originHeight":417,"style":"alignCenter","filename":"ezgif.com-gif-maker (11).gif"}_##]
+![](./images/스냅샷13.gif)
 
 추가로 Rig 컴포넌트에 weight가 있다. 이는 타겟이 캐릭터에게 영향을 주는 정도로 weight가 줄어들수록 target과 상호작용은 약해진다. 
 
 머리만 움직이면 어색하니 흉부도 함께 움직이도록 Constrained Object를 하나 더 추가하고 머리와 흉부에 weight 값을 다르게 줘서 자연스러운 애니메이션을 연출해 보자.
 
-[##_Image|kage@vGhGJ/btrnewoUSKv/MClPA6yWxYKTUaieM7cpF1/img.png|CDM|1.3|{"originWidth":793,"originHeight":566,"style":"alignCenter"}_##]
+![](./images/스냅샷14.gif)
 
 흉부도 함께 움직인다.
 
-[##_Image|kage@vmBfJ/btrndnFZIUL/wpYKrfIFfXgFrXL5nJrqK0/img.gif|CDM|1.3|{"originWidth":800,"originHeight":417,"style":"alignCenter","filename":"ezgif.com-gif-maker (10).gif"}_##]
+![](./images/스냅샷15.gif)
 
 # 📝 정리
 
