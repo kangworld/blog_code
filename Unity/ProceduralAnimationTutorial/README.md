@@ -105,4 +105,87 @@ Multi-Aim Constraint에 몇 가지 정보를 넘겨줘야 한다.
 
 우리는 Rig을 이용해서 폭발물이 터졌을 때와 같은 중요한 이벤트가 발생하면 캐릭터가 해당 지점을 응시하는 등 다양한 실시간 애니메이션을 적용할 수 있다!!
 
-Two Bone IK constraint는 2부에서...
+
+
+# ✍️ Two Bone IK Constraint
+
+다양한 동작들을 유도할 수 있는 서로 다른 제약조건(Constraints)이 있다.
+
+파트 1에서 알아본 Multi-Aim Constraint는 본이 특정 오브젝트를 바라보도록 유도하는 제약조건이었다. 
+
+본 포스팅에선 Two Bone IK Constraint를 알아보며 절차적 애니메이션 포스팅을 마무리하려 한다.
+
+Two Bone IK Constraint를 사용하기 전에 IK라는 단어가 굉장히 낯설어 이에 대해 정리하는 것으로 시작하겠다.
+
+# 🍊 Inverse Kinematics(IK, 역 기구학)
+
+Forward Kinematics과 Inverse Kinematics는 로봇공학에서 주로 등장하는 용어로 
+
+Forward Kinematics란 관절 각도(θ)를 조절해서 로봇의 손이 목표점에 도달하게 하는 것으로 쉽게 말하면 관절의 각도를 손끝의 위치로 변환하는 수학적 계산법을 의미한다.
+
+반면 Inverse Kinematics란 목표점이 주어지면 손이 목표에 도달하기 위한 관절 1과 관절 2의 각도가 산출되는 것으로 쉽게 말하면 손끝의 위치를 관절의 각도로 변환하는 수학적 계산법을 의미한다.
+
+예를 들어 Inverse Kinematics는 목표점 A가 주어지면 관절의 각도
+
+θ 1과 θ 2
+
+를 잘 계산해서 목표점으로 팔을 움직인다.
+
+![](./images/로봇팔.png)
+
+# 🖥️ 다시 Two Bone IK Constraint
+
+Inverse Kinematics의 정의를 고려해 Two Bone IK Constraint가 무엇인지 예상해 보면, Two Bone IK Constraint는 목표점이 주어졌을 때 두 개의 뼈대가 유기적으로 움직이도록 하는 제약조건이다.
+
+백 번의 설명보단 한 번의 코딩이 더 설득력 있듯 직접 만들어보자.
+
+Hierarchy 창에서 던전 스켈레톤을 클릭하고 Animation Rigging - Rig Setup을 클릭하면 Rig 2 오브젝트가 생성된다.
+
+![](./images/스냅샷2-1.png)
+
+개발자 감수성을 자극하는 불편한 오브젝트 이름이다.  Rig 1 -> HeadRig, Rig 2 -> ArmRig으로 변경해 주자.
+
+ArmRig의 자식으로 Empty 오브젝트를 하나 만들어서 Two Bone IK Constraint 컴포넌트를 추가하자.
+
+![](./images/스냅샷2-2.png)
+
+Two Bone IK Constraint 컴포넌트에 세 개의 본 Root, Mid, Tip을 넘겨줘야 한다.
+
+Two Bone IK Constraint임에도 세 개의 본을 넘겨주는 이유는 아마도 세 개의 관절을 얻기 위함인 것 같다.(Two Bones = Three Joints)
+
+본 포스팅에선 Root에 UpperArm(상완), Mid에 ForeArm(전완), Tip에 Hand(손)을 넘겨줘서 팔을 유기적으로 움직여 볼 예정이다.
+
+![](./images/스냅샷2-3.png)
+![](./images/스냅샷2-4.png)
+
+이제 Source Objects를 넘겨줘야 할 차례로 ArmMover 산하에 Empty Object(Target)를 하나 만들어서 Source Object에 넘겨주자.
+
+먼저, Target을 처음 생성하면 바닥에 박혀있는 것을 확인할 수 있는데 Target의 위치를 L Hand에 배치해 보자.
+
+Target을 클릭하고 Ctrl을 누른 상태에서 Bip001 L Hand를 클릭하고 상단의 Animation Rigging - Align Transform을 클릭하면 Target이 L Hand에 위치한다.
+
+![](./images/스냅샷2-5.png)
+
+이제 실행해 보면 애니메이션을 재생하고 있음에도 불구하고 손은 제자리에 있다. 나아가 Target을 움직일 때마다 팔이 따라온다. 
+
+![](./images/스냅샷2-6.gif)
+
+한 가지 팁은 게임을 실행하고 Target을 원하는 위치로 움직이고 Target - Transform - Copy World Placement 후 게임을 종료하고 Target - Transform - Paste World Placement를 하면 이전에 지정한 위치로 Target이 이동해 있다.
+
+이는 여러 가지로 응용이 가능한데, 예를 들면 무기를 잡는 위치를 지정할 때 유용하다.
+
+![](./images/스냅샷2-7.gif)
+
+추가로 하나의 Rig에 Constraint가 여러 개인 경우 Hierarchy 순서대로 적용된다. 
+
+본 포스팅을 예로 들면, HeadAim이 먼저 적용되고 다음으로 ChestAim이 적용된다.
+
+![](./images/스냅샷2-8.png)
+
+# 👋 마무리
+
+Unity에선 여러 Constraint를 사용한 예제를 제공하니 필요한 게 있다면 찾아서 공부할 수 있다!
+
+![](./images/스냅샷2-9.png)
+
+참고 [Make your Characters Interactive! - Animation Rigging in Unity](https://www.youtube.com/watch?v=Htl7ysv10Qs)
