@@ -73,7 +73,7 @@ public class Spaghetti : MonoBehaviour
     }
 }
 ```
- 
+![](./images/스냅샷1.gif)
 
 만약 회전은 0.3초마다 이동은 0.5초마다 하고 싶다면 어떻게 해야 할까?
 
